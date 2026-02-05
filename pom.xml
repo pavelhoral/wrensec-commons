@@ -106,6 +106,19 @@
         </dependencies>
     </dependencyManagement>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.14.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.14.2</version>
+        </dependency>
+    </dependencies>
+
     <distributionManagement>
         <site>
             <id>local</id>
@@ -144,7 +157,44 @@
             </plugins>
         </pluginManagement>
 
+
         <plugins>
+            <plugin>
+                <groupId>org.openrewrite.maven</groupId>
+                <artifactId>rewrite-maven-plugin</artifactId>
+                <version>6.28.1</version>
+
+                <configuration>
+                    <activeRecipes>
+                        <recipe>io.github.mboegers.openrewrite.testngtojupiter.MigrateTestAnnotation</recipe>
+                        <recipe>io.github.mboegers.openrewrite.testngtojupiter.AddTestLifecyleToJUnitTests</recipe>
+                        <recipe>io.github.mboegers.openrewrite.testngtojupiter.MigrateAssertionsRecipes</recipe>
+                        <recipe>io.github.mboegers.openrewrite.testngtojupiter.MigrateDataProvider</recipe>
+                        <recipe>io.github.mboegers.openrewrite.testngtojupiter.MigrateEnabledArgument</recipe>
+                    </activeRecipes>
+                </configuration>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>io.github.mboegers.openrewrite</groupId>
+                        <artifactId>migrate-testngtojupiter-rewrite</artifactId>
+                        <version>1.0-SNAPSHOT</version>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-engine</artifactId>
+                        <version>5.14.2</version>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-params</artifactId>
+                        <version>5.14.2</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
